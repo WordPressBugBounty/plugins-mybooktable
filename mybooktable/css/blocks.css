@@ -1,0 +1,66 @@
+.mbt-shortcode-block-editor .components-placeholder {
+  padding: 2em 1em; }
+
+.mbt-shortcode-block-editor .header {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  font-size: 1.2em; }
+  .mbt-shortcode-block-editor .header .logo {
+    background: url("../images/logo.png");
+    background-size: 100%;
+    height: 4.5em;
+    width: 4.5em;
+    min-width: 4.5em;
+    margin: 0 0.7em 0 0; }
+  .mbt-shortcode-block-editor .header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5em; }
+  .mbt-shortcode-block-editor .header h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 1em; }
+
+.mbt-shortcode-block-editor .spinner-holder {
+  width: 100%;
+  text-align: center; }
+  .mbt-shortcode-block-editor .spinner-holder .components-spinner {
+    float: none; }
+
+.mbt-shortcode-block-editor .description {
+  width: 100%; }
+
+.mbt-shortcode-block-editor .attributes {
+  width: 100%;
+  border-top: 1px solid #e2e4e7;
+  padding-top: 1em;
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .mbt-shortcode-block-editor .attributes .components-base-control__field {
+    display: flex;
+    align-items: center; }
+    .mbt-shortcode-block-editor .attributes .components-base-control__field .components-base-control__label {
+      font-size: 1.2em;
+      padding-right: 0.4em; }
+      .mbt-shortcode-block-editor .attributes .components-base-control__field .components-base-control__label:after {
+        content: ':'; }
+
+.mbt-shortcode-block-editor .preview {
+  width: 100%; }
+  .mbt-shortcode-block-editor .preview .attribute {
+    font-size: 1.2em; }
+    .mbt-shortcode-block-editor .preview .attribute .name {
+      padding-right: 0.4em; }
+      .mbt-shortcode-block-editor .preview .attribute .name:after {
+        content: ':'; }
+    .mbt-shortcode-block-editor .preview .attribute .value {
+      font-weight: bold;
+      cursor: pointer; }
+      .mbt-shortcode-block-editor .preview .attribute .value:hover {
+        text-decoration: underline; }
+    .mbt-shortcode-block-editor .preview .attribute .no-value {
+      opacity: 0.7; }
+
