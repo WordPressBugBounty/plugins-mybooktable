@@ -599,7 +599,7 @@ function mbt_render_settings_page() {
 							} else {
 								echo(esc_attr_e('Amazon and Barnes &amp; Noble Buy Buttons disabled!', 'mybooktable').sprintf('<a href="%s" target="_blank">', esc_url(admin_url('admin.php?page=mbt_settings&mbt_setup_default_affiliates=1')).esc_attr_e('Enable').'</a>'));
 							}
-							echo('<a href="'.esc_url(admin_url('admin.php?page=mbt_settings&mbt_setup_default_affiliates=1').'" class="mbt-default-affiliates-small" target="_blank">'.__('What does this mean?', 'mybooktable').'</a>'));
+							echo('<a href="'.esc_url(admin_url('admin.php?page=mbt_settings&mbt_setup_default_affiliates=1')).'" class="mbt-default-affiliates-small" target="_blank">'.__('What does this mean?', 'mybooktable').'</a>');
 							echo('</div>');
 						}
 					?>
