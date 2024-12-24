@@ -295,12 +295,15 @@ function mbt_add_admin_notices() {
 	}
 
 	if(isset($mbt_add_booktable_page)) {
-		mbt_add_booktable_page();
+        if((isset($_REQUEST['nonce_add_page']) && wp_verify_nonce(sanitize_key($_REQUEST['nonce_add_page']),'add_page_nonce'))) {
+            mbt_add_booktable_page();
+        }
 	}
-
-	if(isset($mbt_remove_booktable_page)) {
-		mbt_update_setting('booktable_page', 0);
-	}
+    if(isset($mbt_remove_booktable_page)) {
+        if((isset($_REQUEST['nonce_remove_page']) && wp_verify_nonce(sanitize_key($_REQUEST['nonce_remove_page']),'remove_page_nonce'))) {
+            mbt_update_setting('booktable_page', 0);
+        }
+    }
 }
 
 function mbt_admin_install_notice() {

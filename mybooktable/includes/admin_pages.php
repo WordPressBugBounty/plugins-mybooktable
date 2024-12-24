@@ -317,10 +317,15 @@ function mbt_render_settings_page() {
 											<option value="<?php echo(esc_attr($page->ID)); ?>" <?php selected(mbt_get_setting('booktable_page'), $page->ID); ?> ><?php echo(esc_attr($page->post_title)); ?></option>
 										<?php } ?>
 									</select>
-									<?php if(mbt_get_setting('booktable_page') == 0 or !get_page(mbt_get_setting('booktable_page'))) { ?>
-										<a href="<?php echo(esc_url(admin_url('admin.php?page=mbt_settings&mbt_add_booktable_page=1'))); ?>" class="button button-primary"><?php esc_attr_e('Click here to create a Book Table page', 'mybooktable'); ?></a>
-									<?php } else { ?>
-										<a href="<?php echo(esc_url(admin_url('admin.php?page=mbt_settings&mbt_remove_booktable_page=1'))); ?>" class="button button-primary"><?php esc_attr_e('Remove Book Table page', 'mybooktable'); ?></a>
+									<?php if(mbt_get_setting('booktable_page') == 0 or !get_page(mbt_get_setting('booktable_page'))) { 
+                                    // nonce the url
+                                    $add_bt_page_url = wp_nonce_url(admin_url('admin.php?page=mbt_settings&mbt_add_booktable_page=1'),'add_page_nonce','nonce_add_page');
+                                    ?>
+										<a href="<?php echo(esc_url($add_bt_page_url)); ?>" class="button button-primary"><?php esc_attr_e('Click here to create a Book Table page', 'mybooktable'); ?></a>
+									<?php } else { 
+                                    // nonce the url
+                                    $remove_bt_page_url = wp_nonce_url(admin_url('admin.php?page=mbt_settings&mbt_remove_booktable_page=1'),'remove_page_nonce','nonce_remove_page'); ?>
+										<a href="<?php echo(esc_url($remove_bt_page_url)); ?>" class="button button-primary"><?php esc_attr_e('Remove Book Table page', 'mybooktable'); ?></a>
 									<?php } ?>
 									<p class="description"><?php esc_attr_e('The Book Table page is the main landing page for your books.', 'mybooktable'); ?></p>
 								</td>
@@ -595,12 +600,13 @@ function mbt_render_settings_page() {
 						if(mbt_get_upgrade() === false) {
 							echo('<div class="mbt-default-affiliates">');
 							if(mbt_get_setting('enable_default_affiliates')) {
-								echo(esc_attr_e('Amazon and Barnes &amp; Noble Buy Buttons enabled!', 'mybooktable').sprintf('<a href="%s" target="_blank">', esc_url(admin_url('admin.php?page=mbt_settings&mbt_setup_default_affiliates=1')).esc_attr_e('Disable').'</a>'));
+								//echo(esc_attr_e('Amazon and Barnes &amp; Noble Buy Buttons enabled!', 'mybooktable').sprintf('<a href="%s" target="_blank">', esc_url(admin_url('admin.php?page=mbt_settings&mbt_setup_default_affiliates=1')).esc_attr_e('Disable').'</a>'));
 							} else {
-								echo(esc_attr_e('Amazon and Barnes &amp; Noble Buy Buttons disabled!', 'mybooktable').sprintf('<a href="%s" target="_blank">', esc_url(admin_url('admin.php?page=mbt_settings&mbt_setup_default_affiliates=1')).esc_attr_e('Enable').'</a>'));
+								//echo(esc_attr_e('Amazon and Barnes &amp; Noble Buy Buttons disabled!', 'mybooktable'));
+								//echo '<a href="'.esc_url(admin_url('admin.php?page=mbt_settings&mbt_setup_default_affiliates=1')).'" target="_blank">'.__('Enable', 'mybooktable').'</a>';
 							}
-							echo('<a href="'.esc_url(admin_url('admin.php?page=mbt_settings&mbt_setup_default_affiliates=1')).'" class="mbt-default-affiliates-small" target="_blank">'.__('What does this mean?', 'mybooktable').'</a>');
-							echo('</div>');
+							//echo('<a href="'.esc_url(admin_url('admin.php?page=mbt_settings&mbt_setup_default_affiliates=1')).'" class="mbt-default-affiliates-small" target="_blank">'.__('What does this mean?', 'mybooktable').'</a>');
+							//echo('</div>');
 						}
 					?>
 					<input type="submit" name="save_settings" class="button button-primary" value="<?php esc_attr_e('Save Changes', 'mybooktable'); ?>">
@@ -1240,6 +1246,7 @@ function mbt_render_founders_page() {
 		<ul>
 			<li><a href="http://www.stevelaube.com">Steve Laube</a>, founder of <a href="http://www.stevelaube.com">Steve Laube Agency</a></li>
 			<li><a href="http://www.dianneprice-author.com/">Dianne Price</a>, author of <a href="http://www.amazon.com/dp/B00CGDPZ68">Dying Light</a></li>
+
 			<li><a href="http://www.creatingthestory.com">Inger Fountain</a>, author of <a href="http://www.creatingthestory.com">Creating the Story</a></li>
 			<li><a href="http://www.caroletowriss.com">Carole Towriss</a>, author of <a href="http://www.amazon.com/Shadow-Sinai-Journey-Canaan-ebook/dp/B00BM92PUQ/ref=sr_1_1?ie=UTF8&amp;qid=1366837954&amp;sr=8-1&amp;keywords=towriss">The Shadow of Sinai</a></li>
 			<li><a href="http://www.hiswords2growby.com">Lisa Phillips</a>, author of <a href="http://www.hiswords2growby.com">Words 2 Grow By</a></li>
