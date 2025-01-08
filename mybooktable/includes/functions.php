@@ -765,7 +765,7 @@ function mbt_verify_api_key() {
 	// added by stormhill 6/14/24 
 	$checkmode = mbt_get_setting('key_mode');
 	
-	$raw_response = wp_remote_post('https://api.authormedia.com/plugins/apikey/check', $options);
+	$raw_response = wp_remote_post('https://api.stormhillmedia.com/plugins/apikey/check', $options);
 
 	if(isset($checkmode) && $checkmode == 'mybooktable-dev3') {
 		mbt_update_setting('api_key_status', 10);

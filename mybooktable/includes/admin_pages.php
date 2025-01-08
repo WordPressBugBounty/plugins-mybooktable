@@ -1162,7 +1162,7 @@ function mbt_render_get_upgrade_page() {
 						'user-agent' => 'WordPress/'.$wp_version
 					);
 
-					$raw_response = wp_remote_post('https://api.authormedia.com/plugins/'.$slug.'/update-check', $options);
+					$raw_response = wp_remote_post('https://api.stormhillmedia.com/plugins/'.$slug.'/update-check', $options);
 					if(!is_wp_error($raw_response) and wp_remote_retrieve_response_code($raw_response) == 200) {
 						$response = maybe_unserialize(wp_remote_retrieve_body($raw_response));
 						if(is_array($response) and !empty($response['package'])) {
