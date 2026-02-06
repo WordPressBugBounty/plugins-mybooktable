@@ -1,3 +1,6 @@
+<?php 
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+?>
 <?php if(mbt_get_setting('enable_socialmedia_book_excerpt')) { ?>
 	<div class="mbt-book-socialmedia-badges"><?php mbt_the_book_socialmedia_badges(); ?></div>
 <?php } ?>

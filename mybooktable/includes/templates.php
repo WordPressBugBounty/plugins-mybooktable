@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function mbt_templates_init() {
 	//register image sizes
@@ -878,7 +879,7 @@ function mbt_the_book_blurb($read_more = false) {
 // General Book Metadata Display
 function mbt_get_book_metadata($post_id, $field_id, $field_title) {
 	$value = get_post_meta($post_id, $field_id, true);
-	return empty($value) ? '' : '<span class="mbt-meta-item mbt-meta-length"><span class="mbt-meta-title">'.$field_title.':</span> '.$value.'</span><br>';
+	return empty($value) ? '' : '<span class="mbt-meta-item mbt-meta-length"><span class="mbt-meta-title">'.esc_html($field_title).':</span> '.esc_html($value).'</span><br>';
 }
 function mbt_the_book_metadata($field_id, $field_title) {
 	global $post;
@@ -893,9 +894,9 @@ function mbt_get_book_publisher($post_id) {
 	$publisher_url = get_post_meta($post_id, 'mbt_publisher_url', true);
 	if(empty($publisher_name)) { return ''; }
 	if(empty($publisher_url)) {
-		$publisher_string = '<span class="mbt-publisher">'.$publisher_name.'</span>';
+		$publisher_string = '<span class="mbt-publisher">'.esc_html($publisher_name).'</span>';
 	} else {
-		$publisher_string = '<a href="'.$publisher_url.'" target="_blank" rel="nofollow" class="mbt-publisher">'.$publisher_name.'</a>';
+		$publisher_string = '<a href="'.esc_url($publisher_url).'" target="_blank" rel="nofollow" class="mbt-publisher">'.esc_html($publisher_name).'</a>';
 	}
 	$output = '<span class="mbt-meta-item mbt-meta-publisher"><span class="mbt-meta-title">'.__('Publisher', 'mybooktable').':</span> '.$publisher_string.'</span><br>';
 	return apply_filters('mbt_get_book_publisher', $output, $post_id);
@@ -911,7 +912,7 @@ function mbt_get_book_unique_id($post_id) {
 	$output = '';
 	if(get_post_meta($post_id, 'mbt_show_unique_id', true) !== 'no') {
 		$unique_id = get_post_meta($post_id, 'mbt_unique_id_asin', true);
-		$output .= empty($unique_id) ? '' : '<span class="mbt-meta-item mbt-meta-asin"><span class="mbt-meta-title">ASIN:</span> <span>'.$unique_id.'</span></span><br>';
+		$output .= empty($unique_id) ? '' : '<span class="mbt-meta-item mbt-meta-asin"><span class="mbt-meta-title">ASIN:</span> <span>'.esc_html($unique_id).'</span></span><br>';
 		$unique_id = get_post_meta($post_id, 'mbt_unique_id_isbn', true);
 		$output .=  empty($unique_id) ? '' : '<span class="mbt-meta-item mbt-meta-isbn"><span class="mbt-meta-title">ISBN:</span> <span itemprop="isbn">'.$unique_id.'</span></span><br>';
 	}
@@ -942,7 +943,7 @@ function mbt_get_book_series_list($post_id) {
 	$series = mbt_get_book_series($post_id);
 
 	while(!empty($series) and !is_wp_error($series)) {
-		$output = '<a itemprop="keywords" href="'.esc_url(get_term_link($series, 'mbt_series')).'">'.$series->name.'</a>'.(empty($output) ? '' : ', '.$output);
+		$output = '<a itemprop="keywords" href="'.esc_url(get_term_link($series, 'mbt_series')).'">'.esc_html($series->name).'</a>'.(empty($output) ? '' : ', '.$output);
 		$series = get_term_by('id', $series->parent, 'mbt_series');
 	}
 
@@ -970,7 +971,7 @@ function mbt_get_the_term_list($post_id, $tax, $name, $name_plural, $type) {
 	foreach($terms as $term) {
 		$link = get_term_link($term, $tax);
 		$itemprop = ($type === 'author' or $type === 'genre') ? ' itemprop="'.$type.'"' : '';
-		$term_links[] = '<a'.$itemprop.' href="'.esc_url($link).'">'.$term->name.'</a>';
+		$term_links[] = '<a'.$itemprop.' href="'.esc_url($link).'">'.esc_html($term->name).'</a>';
 	}
 
 	return '<span class="mbt-meta-item mbt-meta-'.$tax.'"><span class="mbt-meta-title">'.(count($terms) > 1 ? $name_plural : $name).':</span> '.join(', ', $term_links).'</span><br>';
@@ -1022,7 +1023,7 @@ function mbt_get_book_series_books($post_id) {
 				list($src, $width, $height) = mbt_get_book_image_src($series_book->ID);
 				$output .= '<div class="mbt-series-book">';
 				$output .= '<div class="mbt-series-book-images"><a href="'.get_permalink($series_book->ID).'"><img src="'.$src.'"></a></div>';
-				$output .= '<div class="mbt-series-book-title"><a href="'.get_permalink($series_book->ID).'">'.$series_book->post_title.'</a></div>';
+				$output .= '<div class="mbt-series-book-title"><a href="'.esc_url(get_permalink($series_book->ID)).'">'.esc_html($series_book->post_title).'</a></div>';
 				$output .= '</div>';
 			}
 			$output .= '<div style="clear:both"></div>';
@@ -1136,10 +1137,10 @@ function mbt_get_book_endorsements($post_id) {
 			$output .= '<div class="mbt-endorsement">';
 			$image = wp_get_attachment_image_src($endorsement['image_id'], 'mbt_endorsement_image');
 			$srcset = function_exists('wp_get_attachment_image_srcset') ? wp_get_attachment_image_srcset($endorsement['image_id'], 'mbt_endorsement_image') : '';
-			if(!empty($image)) { $output .= '<div class="mbt-endorsement-image"><img src="'.$image[0].'"'.(empty($srcset) ? '' : ' srcset="'.$srcset.'"').'></div>'; }
+			if(!empty($image)) { $output .= '<div class="mbt-endorsement-image"><img src="'.esc_url($image[0]).'"'.(empty($srcset) ? '' : ' srcset="'.esc_attr($srcset).'"').'></div>'; }
 			$output .= '	<div class="mbt-endorsement-content">';
-			$output .=			$endorsement['content'];
-			$output .=			empty($endorsement['name']) ? '' : '<div class="mbt-endorsement-name">&ndash; '.(empty($name_url) ? '' : '<a href="'.$name_url.'" target="_blank">').$endorsement['name'].(empty($name_url) ? '' : '</a>').'</div>';
+			$output .=			wp_kses_post($endorsement['content']);
+			$output .=			empty($endorsement['name']) ? '' : '<div class="mbt-endorsement-name">&ndash; '.(empty($name_url) ? '' : '<a href="'.esc_url($name_url).'" target="_blank">').esc_html($endorsement['name']).(empty($name_url) ? '' : '</a>').'</div>';
 			$output .= '	</div>';
 			$output .= '	<div style="clear:both"></div>';
 			$output .= '</div>';
@@ -1183,11 +1184,11 @@ function mbt_get_book_about_author($post_id) {
 
 	$output .= '<div class="mbt-book-about-author">';
 	if(!empty($image)) {
-	$output .= '	<div class="mbt-book-about-author-image"><img src="'.$image.'"></div>';
+	$output .= '	<div class="mbt-book-about-author-image"><img src="'.esc_url($image).'"></div>';
 	$output .= '	<div class="mbt-book-about-author-right">';
 	}
 	$output .= '		<div class="mbt-book-about-author-name">'.$author->name.'</div>';
-	$output .= '		<div class="mbt-book-about-author-desc">'.wpautop($author->description).'</div>';
+	$output .= '		<div class="mbt-book-about-author-desc">'.wp_kses_post(wpautop($author->description)).'</div>';
 	if(!empty($image)) {
 	$output .= '	</div>';
 	$output .= '	<div style="clear:both"></div>';
@@ -1208,7 +1209,7 @@ function mbt_get_book_teaser($post_id) {
 	$output = '';
 	$teaser = get_post_meta($post_id, 'mbt_book_teaser', true);
 	if($teaser) {
-		$output .= '<h2 class="mbt-book-teaser">'.$teaser.'</h2>';
+		$output .= '<h2 class="mbt-book-teaser">'.esc_html($teaser).'</h2>';
 	}
 	return apply_filters('mbt_get_book_teaser', $output, $post_id);
 }

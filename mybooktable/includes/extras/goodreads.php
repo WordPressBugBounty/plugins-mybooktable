@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function mbt_goodreads_init() {
 	add_action('mbt_integrate_settings_render', 'mbt_goodreads_settings_render', 9);

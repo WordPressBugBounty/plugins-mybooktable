@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /*---------------------------------------------------------*/
 /* Check for Updates                                       */
@@ -73,7 +74,7 @@ function mbt_update_1_2_7() {
 
 function mbt_update_1_3_1() {
 	//mbt_update_setting('help_page_email_subscribe_popup', 'show');
-	mbt_update_setting('product_name', __("Books"));
+	mbt_update_setting('product_name', __("Books", 'mybooktable'));
 	mbt_update_setting('product_slug', _x('books', 'URL slug', 'mybooktable'));
 }
 

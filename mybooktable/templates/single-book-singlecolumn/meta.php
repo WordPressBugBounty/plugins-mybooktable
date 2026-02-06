@@ -1,3 +1,6 @@
+<?php 
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+?>
 <a class="mbt-book-anchor" id="mbt-book-meta-anchor" name="mbt-book-meta-anchor"></a>
 <div class="mbt-book-section mbt-book-meta-section">
 	<div class="mbt-book-section-title"><?php global $post; echo(esc_attr(apply_filters('mbt_book_section_title', __('Details', 'mybooktable'), $post->ID, 'meta'))); ?></div>

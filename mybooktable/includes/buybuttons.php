@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /*---------------------------------------------------------*/
 /* General Buy Buttons Functions                           */
@@ -46,8 +47,8 @@ function mbt_add_basic_stores($stores) {
 }
 
 function mbt_buybutton_editor($data, $id, $store) {
-	$output  = '<input id="'.$id.'_name" name="'.$id.'[store]" type="hidden" value="'.$data['store'].'">';
-	$output .= '<textarea id="'.$id.'_url" name="'.$id.'[url]" cols="80">'.(empty($data['url']) ? '' : htmlspecialchars($data['url'])).'</textarea>';
+	$output  = '<input id="'.$id.'_name" name="'.$id.'[store]" type="hidden" value="'.esc_attr(isset($data['store']) ? $data['store'] : '').'">';
+	$output .= '<textarea id="'.$id.'_url" name="'.$id.'[url]" cols="80">'.esc_textarea(isset($data['url']) ? $data['url'] : '').'</textarea>';
 	$editor_desc = (empty($store['editor_desc']) ? __('Paste in the product URL for this item.', 'mybooktable').' <a href="'.admin_url('admin.php?page=mbt_help&mbt_video_tutorial=buy_buttons').'" target="_blank">'.__('Learn more about adding Buy Button links.', 'mybooktable').'</a>' : $store['editor_desc']);
 	
 	/* translators: %s: the name of the book source (store) */
@@ -428,7 +429,7 @@ function mbt_amazon_affiliate_settings_render($mbt_nonce) {
 							<textarea rows="5" cols="60" type="text" name="mbt_amazon_affiliates_onelink_code" id="mbt_amazon_affiliates_onelink_code" style="vertical-align: top;"><?php echo(esc_attr(htmlspecialchars(mbt_get_setting('amazon_affiliates_onelink_code')) ?? "", ENT_QUOTES)); ?></textarea>
 							<div class="mbt_feedback_refresh" data-refresh-action="mbt_amazon_onelink_code_refresh" data-element="mbt_amazon_affiliates_onelink_code" data-refresh-nonce="<?php echo(esc_attr($mbt_nonce)); ?>"></div>
 							<p class="description">
-								<?php echo esc_attr_e('You can find your Amazon OneLink Script Code by visiting your Amazon Affiliate Homepage, under Tools > OneLink.'); ?>
+								<?php esc_attr_e('You can find your Amazon OneLink Script Code by visiting your Amazon Affiliate Homepage, under Tools > OneLink.', 'mybooktable'); ?>
 								<?php //sprintf(__('You can find your Amazon OneLink Script Code by visiting your %sAmazon Affiliate Homepage%s, under Tools > OneLink. %sClick here to learn more about Amazon OneLink%s %sLearn how to sign up for Amazon Associates.%s', 'mybooktable'), '<a href="https://affiliate-program.amazon.com/gp/associates/network/main.html" target="_blank">', '</a>', 'https://affiliate-program.amazon.com/help/node/topic/202164400', '</a>', '<a href="'.admin_url('admin.php?page=mbt_help&mbt_video_tutorial=amazon_affiliates').'" target="_blank">', '</a>'); ?>
 							</p>
 						</div>
@@ -801,7 +802,7 @@ add_action('mbt_init', 'mbt_gumroad_buybutton_init');
 
 function mbt_gumroad_buybutton_editor($output, $data, $id, $store) {
 	if($data['store'] == 'gumroad') {
-		$output = '<p><input type="checkbox" id="'.$id.'_use_shadowbox" name="'.$id.'[use_shadowbox]" '.checked(!empty($data['use_shadowbox']), true, false).'> <label for="'.$id.'_use_shadowbox">Use shadow box for purchase?</label></p>'.$output;
+		$output = '<p><input type="checkbox" id="'.esc_attr($id).'_use_shadowbox" name="'.esc_attr($id).'[use_shadowbox]" '.checked(!empty($data['use_shadowbox']), true, false).'> <label for="'.esc_attr($id).'_use_shadowbox">Use shadow box for purchase?</label></p>'.$output;
 	}
 	return $output;
 }

@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 mbt_start_template_context('archive');
 do_action('mbt_content_wrapper_start');

@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /*---------------------------------------------------------*/
 /* Cusom Taxonomies                                        */
@@ -158,7 +159,7 @@ function mbt_add_taxonomy_image_edit_form() {
 	<tr class="form-field">
 		<th><label for="mbt_tax_image_url"><?php esc_attr_e('Image', 'mybooktable') ?></label></th>
 		<td>
-			<?php echo esc_attr($mbt_nonce); 
+			<?php echo $mbt_nonce; 
 			$mbt_tax_image = mbt_get_taxonomy_image($taxonomy, $tag_ID);
 			?>
 			<input type="text" id="mbt_tax_image_url" name="mbt_tax_image_url" value="<?php echo(wp_kses_post($mbt_tax_image));?>" />
@@ -173,7 +174,7 @@ function mbt_add_taxonomy_image_add_form() {
 ?>
 	<div class="form-field">
 		<label for="mbt_tax_image_url"><?php esc_attr_e('Image', 'mybooktable') ?></label>
-		<?php echo esc_attr($mbt_nonce); ?>
+		<?php echo $mbt_nonce; ?>
 		<input type="text" id="mbt_tax_image_url" name="mbt_tax_image_url" value="" />
 		<input id="mbt_upload_tax_image_button" class="button mbt_upload_button" data-upload-target="mbt_tax_image_url" data-upload-title="<?php esc_attr_e('Taxonomy Image', 'mybooktable'); ?>" type="button" value="<?php esc_attr_e('Upload', 'mybooktable'); ?>" />
 	</div>
@@ -216,7 +217,7 @@ function mbt_add_author_priority_edit_form() {
 	<tr class="form-field">
 		<th><label for="mbt_author_priority"><?php esc_attr_e('Priority', 'mybooktable') ?></label></th>
 		<td>
-			<?php echo esc_attr($mbt_nonce); ?>
+			<?php echo $mbt_nonce; ?>
 			<input type="text" id="mbt_author_priority" name="mbt_author_priority" value="<?php echo(esc_attr(mbt_get_author_priority(intval($tag_ID)))); ?>" />
 			<div id="mbt_author_priority_slider"></div>
 			<div id="mbt_author_priority_display"></div>
@@ -232,7 +233,7 @@ function mbt_add_author_priority_add_form() {
 ?>
 	<div class="form-field">
 		<label for="mbt_author_priority"><?php esc_attr_e('Priority', 'mybooktable') ?></label>
-		<?php echo esc_attr($mbt_nonce); ?>
+		<?php echo $mbt_nonce; ?>
 		<input type="text" id="mbt_author_priority" name="mbt_author_priority" value="50" />
 		<div id="mbt_author_priority_slider"></div>
 		<div id="mbt_author_priority_display"></div>

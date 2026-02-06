@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function mbt_totallybooked_init() {
 	add_filter('mbt_importers', 'mbt_add_totallybooked_importer');

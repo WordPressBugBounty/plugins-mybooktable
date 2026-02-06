@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function mbt_register_widgets() {
 	register_widget("MBT_Featured_Book");
@@ -95,12 +96,12 @@ class MBT_Featured_Book extends WP_Widget {
 		?>
 
 		<div class="mbt-featured-book-widget-editor" onmouseover="mbt_initialize_featured_book_widget_editor(this);">
-			<p>esc_attr_e(
+		<p>
 				<label><?php esc_attr_e('Title', 'mybooktable'); ?>: <input type="text" name="<?php echo(esc_attr($this->get_field_name('title'))); ?>" value="<?php echo(esc_attr($title)); ?>"></label>
 			</p>
 			<p>
 				<label><?php esc_attr_e('Book image size:', 'mybooktable'); ?></label><br>
-				<?php $sizes = array('small' =>esc_attr_e('Small', 'mybooktable'), 'medium' => esc_attr_e('Medium', 'mybooktable'), 'large' => esc_attr_e('Large', 'mybooktable')); ?>
+				<?php $sizes = array('small' =>__('Small', 'mybooktable'), 'medium' => __('Medium', 'mybooktable'), 'large' => __('Large', 'mybooktable')); ?>
 				<?php foreach($sizes as $size => $size_name) { ?>
 					<input type="radio" name="<?php echo(esc_attr($this->get_field_name('image_size'))); ?>" id="<?php echo(esc_attr($this->get_field_id('image_size').' '.$size)); ?>" value="<?php echo(esc_attr($size)); ?>" <?php echo($image_size == $size ? ' checked' : ''); ?> >
 					<label for="<?php echo(esc_attr($this->get_field_id('image_size').' '.$size)); ?>"><?php echo(esc_attr($size_name)); ?></label><br>

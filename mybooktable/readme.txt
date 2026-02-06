@@ -3,8 +3,8 @@ Contributors: stormhill, authormedia, zookatron, neovita
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K6UGSUCSKP4NS
 Tags: book, books, ecommerce, author plugin
 Requires at least: 4.5.0
-Tested up to: 6.6.1
-Stable tag: 3.5.5
+Tested up to: 6.9
+Stable tag: 3.6.0
 Requires PHP: 7.0
 
 License: GPLv2 or later
@@ -208,6 +208,15 @@ No! This plugin would work great for anyone wanting to have an Amazon Affiliate 
 5. The image shows the admin interface for the Books page. This is list or index of all your books. You can arrange the order via drag and drop by clicking on “sort books”.
 
 == Upgrade Notice ==
+
+= 3.5.8 =
+Add extra script security features.
+
+= 3.5.7 =
+Fixed contributor level xss vulnerabilities related to taxonomy term names added in admin pages.
+
+= 3.5.6 =
+Fixed contributor level xss vulnerabilities found in includes/buybuttons.php, includes/extras/shortcodes.php, includes/metaboxes.php
 
 = 3.5.5 =
 changed the location and url of the key server.

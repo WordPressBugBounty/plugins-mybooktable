@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function mbt_metaboxes_init() {
 	add_action('wp_ajax_mbt_buybuttons_metabox', 'mbt_buybuttons_metabox_ajax');
@@ -323,7 +324,7 @@ function mbt_metadata_kindle_instant_preview($post_id, $field_id, $data) {
 
 function mbt_metadata_upload($post_id, $field_id, $data) {
 	$output = '';
-	$output .= '<input type="text" name="'.$field_id.'" id="'.$field_id.'" value="'.get_post_meta($post_id, $field_id, true).'" /> ';
+	$output .= '<input type="text" name="'.$field_id.'" id="'.$field_id.'" value="'.esc_attr(get_post_meta($post_id, $field_id, true)).'" /> ';
 	$output .= '<input class="button mbt_upload_button" data-upload-target="'.$field_id.'" data-upload-title="'.__('Choose Sample', 'mybooktable').'" type="button" value="'.__('Upload', 'mybooktable').'" />';
 	return $output;
 }
@@ -343,7 +344,7 @@ function mbt_metadata_star_rating($post_id, $field_id, $data) {
 
 function mbt_metadata_colorpicker($post_id, $field_id, $data) {
 	$output = '';
-	$output .= '<input type="text" class="mbt-colorpicker" name="'.$field_id.'" id="'.$field_id.'" value="'.get_post_meta($post_id, $field_id, true).'"'.(empty($data['default']) ? '' : ' data-default-color="'.$data['default'].'"').'/>';
+	$output .= '<input type="text" class="mbt-colorpicker" name="'.$field_id.'" id="'.$field_id.'" value="'.esc_attr(get_post_meta($post_id, $field_id, true)).'"'.(empty($data['default']) ? '' : ' data-default-color="'.esc_attr($data['default']).'"').'/>';
 	$output .= '<input class="button mbt-colorpicker-clear" type="button" value="'.__('Clear', 'mybooktable').'" />';
 	return $output;
 }
@@ -572,7 +573,7 @@ function mbt_buybuttons_metabox_editor($data, $num, $store) {
 	echo '</div>';
 	echo '<div class="mbt_buybutton_editor_footer">';
 	echo '<span class="mbt_buybutton_display_title">Display as:</span>';
-	$display = (empty(esc_attr($data['display']))) ? 'button' : esc_attr($data['display']);
+	$display = (isset($data['display']) && !empty($data['display'])) ? esc_attr($data['display']) : 'button';
 	echo '<label class="mbt_buybutton_display"><input type="radio" name="mbt_buybutton'.esc_attr($num).'[display]" value="button" '.checked($display, 'button', false).'>'.esc_attr_e('Button', 'mybooktable').'</label>';
 	echo '<label class="mbt_buybutton_display"><input type="radio" name="mbt_buybutton'.esc_attr($num).'[display]" value="text" '.checked($display, 'text', false).'>'.esc_attr_e('Text Bullet', 'mybooktable').'</label>';
 	echo '</div>';
@@ -591,7 +592,7 @@ function mbt_buybuttons_metabox_ajax() {
 function mbt_buybuttons_metabox($post) {
 	wp_nonce_field(plugin_basename(__FILE__), 'mbt_nonce');
 	if(!mbt_get_setting('enable_default_affiliates') and mbt_get_upgrade() === false) {
-		echo '<a href="admin.php?page=mbt_settings&mbt_setup_default_affiliates=1">'.esc_attr_e('Activate Amazon and Barnes &amp; Noble Buttons').'</a>';
+		echo '<a href="admin.php?page=mbt_settings&mbt_setup_default_affiliates=1">'.esc_attr_e('Activate Amazon &amp; Noble Buttons', 'mybooktable').'</a>';
 	}
 	echo '<div class="mbt-buybuttons-note">'.wp_kses_post(mbt_get_upgrade_message(false, esc_attr_e('Want more options? Upgrade your MyBookTable and get the Universal Buy Button.', 'mybooktable'), '')).'</div>';
 	echo '<div id="mbt_buybutton_nonce" data-nonce="'.esc_attr(wp_create_nonce('mbt-ajax-nonce')).'"></div>';
@@ -600,7 +601,7 @@ function mbt_buybuttons_metabox($post) {
 	uasort($stores, function($a, $b) { return strcasecmp($a["name"], $b["name"]); });
 	echo '<label for="mbt_store_selector">Choose One:</label>';
 	echo '<select id="mbt_store_selector">';
-	echo '<option value="">'.esc_attr_e('-- Choose One --').'</option>';
+	echo '<option value="">'.esc_attr_e('-- Choose One --', 'mybooktable').'</option>';
 	foreach($stores as $slug => $store) {
 		echo '<option value="'.esc_attr($slug).'">'.esc_attr($store['name']).'</option>';
 	}

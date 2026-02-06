@@ -1,3 +1,6 @@
+<?php 
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+?>
 <?php
 do_action('mbt_before_single_book_singlecolumn');
 mbt_do_book_content_sections('singlecolumn');

@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 //Writing
 $writing = wp_insert_term('Writing', 'mbt_genre', array('slug' => 'writing'));

@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function mbt_themes_init() {
 	add_filter('body_class', 'mbt_override_twentyseventeen_body_classes', 20);

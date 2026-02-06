@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function mbt_booksorting_init() {
 	add_filter('views_edit-mbt_book',  'mbt_add_sort_books_link');

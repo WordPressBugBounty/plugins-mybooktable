@@ -1,3 +1,6 @@
+<?php 
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+?>
 <?php
 
 do_action('mbt_before_book_excerpt');

@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 do_action('mbt_before_book_archive_header');
 ?><header class="mbt-book-archive-header"><?php

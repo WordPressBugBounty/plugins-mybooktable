@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /*---------------------------------------------------------*/
 /* Settings Functions                                      */
@@ -151,7 +152,7 @@ function mbt_get_reviews_types() {
 
 function mbt_add_disabled_reviews_types($reviews) {
 	$reviews['amazon'] = array(
-		'name' => __('Amazon Reviews'),
+		'name' => __('Amazon Reviews','mybooktable'),
 		'disabled' => mbt_get_upgrade_message(),
 	);
 	return $reviews;
@@ -381,7 +382,7 @@ function mbt_book_bulk_change_display_mode_action() {
 			$books_updated++;
 		}
 
-		wp_redirect(add_query_arg(array('paged' => $wp_list_table->get_pagenum(), 'mbt-books-updated' => $books_updated), admin_url('edit.php?post_type=mbt_book')));
+		wp_safe_redirect(add_query_arg(array('paged' => $wp_list_table->get_pagenum(), 'mbt-books-updated' => $books_updated), admin_url('edit.php?post_type=mbt_book')));
 		exit();
 	}
 }

@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /*---------------------------------------------------------*/
 /* General SEO Functions                                   */
@@ -182,7 +183,7 @@ function mbt_seo_title($post_id = 0) {
 			$authors = '';
 			if($terms) {
 				foreach($terms as $term) {
-					$authors .= $term->name . ', ';
+					$authors .= esc_html($term->name) . ', ';
 				}
 				$authors = rtrim(trim($authors), ',');
 			}
@@ -211,7 +212,7 @@ function mbt_seo_tax_title($term = '', $taxonomy = '') {
 	if($term_obj and !empty($term_obj->labels)) {
 		$title = $term_obj->labels->name." - ".get_bloginfo('name');
 	} else if($term_obj and !empty($term_obj->name)) {
-		$title = $term_obj->name." - ".get_bloginfo('name');
+		$title = esc_html($term_obj->name)." - ".get_bloginfo('name');
 	}
 
 	return $title;

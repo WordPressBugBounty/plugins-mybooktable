@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 mbt_start_template_context('single');
 mbt_start_template_display_mode('singlecolumn');

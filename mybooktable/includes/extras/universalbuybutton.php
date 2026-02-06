@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /*---------------------------------------------------------*/
 /* Universal Buy Button                                    */
@@ -20,8 +21,8 @@ function mbt_add_universal_buybutton($stores) {
 function mbt_universal_buybutton_editor($output, $data, $id, $store) {
 	if($data['store'] == 'universal') {
 		$output  = '<input name="'.$id.'[store]" type="hidden" value="'.$data['store'].'">';
-		$output .= __('Button Text:').' <input type="text" name="'.$id.'[text]" value="'.(empty($data['text']) ? '' : $data['text']).'"><br>';
-		$output .= __('Button URL:').' <input type="text" name="'.$id.'[url]" value="'.(empty($data['url']) ? '' : htmlspecialchars($data['url'])).'"><br>';
+		$output .= __('Button Text:','mybooktable').' <input type="text" name="'.$id.'[text]" value="'.(empty($data['text']) ? '' : $data['text']).'"><br>';
+		$output .= __('Button URL:','mybooktable').' <input type="text" name="'.$id.'[url]" value="'.(empty($data['url']) ? '' : htmlspecialchars($data['url'])).'"><br>';
 		$editor_desc = (empty($store['editor_desc']) ? __('Paste in the product URL for this item.', 'mybooktable').' <a href="'.admin_url('admin.php?page=mbt_help&mbt_video_tutorial=buy_buttons').'" target="_blank">'.__('Learn more about adding Buy Button links.', 'mybooktable').'</a>' : $store['editor_desc']);
 		$output .= '<p>'.$editor_desc.'</p>';
 	}

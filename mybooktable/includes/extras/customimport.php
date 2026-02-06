@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /*---------------------------------------------------------*/
 /* Custom MyBookTable Importer/Exporter                    */
@@ -24,7 +25,6 @@ function mbt_add_custom_importer($importers) {
 }
 
 function mbt_render_custom_importer_form() {
-	$sh_import_nonce = wp_nonce_field('mbt-import-nonce','data-import-nonce');
 	?>
 		<h3 style="margin-bottom: 0px;"><?php esc_attr_e('Export', 'mybooktable'); ?></h3>
 		<div style="margin: 4px 0;">Click the 'Export' button below and save the MyBookTable Backup file to an appropriate location.</div>
@@ -32,9 +32,9 @@ function mbt_render_custom_importer_form() {
 		<button class="button button-primary" onclick="window.open(window.location+'&export='+(jQuery('#mbt_export_settings').is(':checked') ? 'books,settings' : 'books')); return false;">Export</button>
 		<h3 style="margin-bottom: 0px;margin-top:30px;"><?php esc_attr_e('Import', 'mybooktable'); ?></h3>
 		<div style="margin: 4px 0;">Choose your MyBookTable Backup file with the file picker below then click "Import".</div>
-		<input name="mbt_custom_import_file" type="file">		
+		<input name="mbt_custom_import_file" type="file">
+		<?php wp_nonce_field('mbt-import-nonce','data-import-nonce'); ?>
 	<?php
-		echo(wp_kses_post($sh_import_nonce));
 }
 
 function mbt_parse_custom_importer_form() {
@@ -195,7 +195,7 @@ function mbt_detect_custom_export_download() {
 		$new_book['image_id'] = get_post_meta($book->ID, 'mbt_book_image_id', true);
 		$new_book['image_filename'] = wp_basename(get_attached_file($new_book['image_id']));
 		$book_image_info = wp_get_attachment_image_src($new_book['image_id'],'full',false);
-		$new_book['image_src'] = $book_image_info[0];
+		$new_book['image_src'] = (is_array($book_image_info) && isset($book_image_info[0])) ? $book_image_info[0] : '';
 		$new_book['sample_url'] = get_post_meta($book->ID, 'mbt_sample_url', true);
 		$new_book['book_length'] = get_post_meta($book->ID, 'mbt_book_length', true);
 		$new_book['sale_price'] = get_post_meta($book->ID, 'mbt_sale_price', true);

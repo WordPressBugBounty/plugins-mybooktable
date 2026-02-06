@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function mbt_shortcodes_init() {
 	add_shortcode('mybooktable', 'mbt_mybooktable_shortcode');
@@ -32,16 +33,21 @@ function mbt_mybooktable_shortcode($attrs) {
 		}
 
 		$display = empty($attrs['display']) ? '' : $attrs['display'];
+		// Security: Whitelist allowed display values
+		$allowed_displays = array('simple', 'bar', '');
+		if (!in_array($display, $allowed_displays, true)) {
+			$display = '';
+		}
 
 		if($display == "simple" || $display == "bar") {
-			$output .= '<ul class="mbt-taxonomy-list '.$display.'">';
+			$output .= '<ul class="mbt-taxonomy-list '.esc_attr($display).'">';
 
 			$terms = get_terms($tax);
 			foreach($terms as $term) {
 				$link = get_term_link($term);
 				$name = $term->name;
 
-				$output .= '<li class="mbt-taxonomy-item"><a href="'.$link.'">'.$name.'</a></li>';
+				$output .= '<li class="mbt-taxonomy-item"><a href="'.esc_url($link).'">'.esc_html($name).'</a></li>';
 			}
 
 			$output .= '	<div style="clear:both;"></div>';
@@ -59,11 +65,11 @@ function mbt_mybooktable_shortcode($attrs) {
 
 				$output .= '<div class="mbt-taxonomy">';
 				$output .= '	<div class="mbt-taxonomy-image">';
-				$output .= '		<a href="'.$link.'"><img class="mbt-taxonomy-image" src="'.$img.'"></a>';
+				$output .= '		<a href="'.esc_url($link).'"><img class="mbt-taxonomy-image" src="'.esc_url($img).'"></a>';
 				$output .= '	</div>';
 				$output .= '	<div class="mbt-taxonomy-right">';
-				$output .= '		<h1 class="mbt-taxonomy-title"><a href="'.$link.'">'.$name.'</a></h1>';
-				if(!empty($desc)) { $output .= '		<div class="mbt-taxonomy-description">'.$desc.'</div>'; }
+				$output .= '		<h1 class="mbt-taxonomy-title"><a href="'.esc_url($link).'">'.esc_html($name).'</a></h1>';
+				if(!empty($desc)) { $output .= '		<div class="mbt-taxonomy-description">'.wp_kses_post($desc).'</div>'; }
 				$output .= '	</div>';
 				$output .= '	<div style="clear:both;"></div>';
 				$output .= '</div>';
@@ -417,7 +423,7 @@ function mbt_authormedia_shortcode_inserter_form() {
 			var active_item = jQuery('.authormedia-shortcode-section .shortcode-menu-item.active');
 			var shortcode_full = active_item.data('shortcode');
 			if(shortcode_full == '') {
-				alert('Please select a shortcode', 'authormedia');
+				alert('Please select a shortcode', 'mybooktable');
 				return;
 			}
 
@@ -493,7 +499,7 @@ function mbt_authormedia_shortcode_inserter_form() {
 
 	<div id="authormedia-insert-shortcode" style="display:none;">
 		<div class="authormedia-insert-shortcode-container">
-			<a class="media-modal-close shortcode-modal-close" href="#" title="<?php esc_attr_e('Close', 'authormedia'); ?>">
+			<a class="media-modal-close shortcode-modal-close" href="#" title="<?php esc_attr_e('Close', 'mybooktable'); ?>">
 				<span class="media-modal-icon"></span>
 			</a>
 			<div class="authormedia-shortcode-section-nav">
@@ -520,12 +526,12 @@ function mbt_authormedia_shortcode_inserter_form() {
 							</div>
 						</div>
 						<div class="media-frame-title">
-							<h1><?php esc_attr_e('Insert a Shortcode', 'authormedia'); ?></h1>
+							<h1><?php esc_attr_e('Insert a Shortcode', 'mybooktable'); ?></h1>
 						</div>
 						<div class="media-frame-router"></div>
 						<div class="media-frame-content">
 							<div id="authormedia_shortcode_form_intro" class="authormedia_shortcode_form_atts">
-								<?php esc_attr_e('To get started, select a shortcode from the list on the left.', 'authormedia'); ?>
+								<?php esc_attr_e('To get started, select a shortcode from the list on the left.', 'mybooktable'); ?>
 							</div>
 							<?php foreach ( $shortcodes as $shortcode => $atts ): ?>
 							<div id="authormedia_shortcode_form_<?php echo esc_attr($shortcode); ?>" class="authormedia_shortcode_form_atts" style="display:none">
@@ -635,10 +641,10 @@ function mbt_authormedia_shortcode_inserter_form() {
 						<div class="media-frame-toolbar">
 							<div class="media-toolbar">
 							<div class="media-toolbar-secondary">
-								<a class="button media-button button-large button-cancel" style="color:#bbb;" href="#" onclick="tb_remove(); return false;"><?php esc_attr_e("Cancel", 'authormedia'); ?></a>
+								<a class="button media-button button-large button-cancel" style="color:#bbb;" href="#" onclick="tb_remove(); return false;"><?php esc_attr_e("Cancel", 'mybooktable'); ?></a>
 							</div>
 							<div class="media-toolbar-primary">
-								<input type="button" class="button media-button button-primary button-large button-insert" value="<?php esc_attr_e('Insert Shortcode', 'authormedia'); ?>" onclick="authormedia_insert_shortcode();"/>
+								<input type="button" class="button media-button button-primary button-large button-insert" value="<?php esc_attr_e('Insert Shortcode', 'mybooktable'); ?>" onclick="authormedia_insert_shortcode();"/>
 							</div>
 						</div></div>
 					</div>

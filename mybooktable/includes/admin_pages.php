@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function mbt_admin_pages_init() {
 	if(is_admin()) {
@@ -40,7 +41,7 @@ function mbt_enqueue_admin_resources() {
 		'import_interrupted' => __('Import Interrupted', 'mybooktable'),
 		'import_complete' => __('Import Complete', 'mybooktable'),
 		'successfully_imported' => __('Successfully imported', 'mybooktable'),
-		'swich_to_mode' => __('Switch to mode'),
+		'swich_to_mode' => __('Switch to mode', 'mybooktable'),
 		'set_author_priority' => __('Set the priority (order) of the authors', 'mybooktable'),
 		'enter_main_author_bio' => __('Edit the main author bio', 'mybooktable'),
 	));
@@ -74,7 +75,7 @@ function mbt_add_admin_pages() {
 }
 
 function mbt_upgrade_link_redirect() {
-	wp_redirect('https://www.stormhillmedia.com/all-products/mybooktable/upgrades/', 301);
+	wp_safe_redirect('https://www.stormhillmedia.com/all-products/mybooktable/upgrades/', 301);
 	exit();
 }
 
@@ -1062,7 +1063,7 @@ function mbt_render_dashboard() {
 							<div class="handlediv"><br></div>
 							<h3 class="hndle"><?php esc_attr_e('Current Version', 'mybooktable'); ?></h3>
 							<div class="inside">
-								<h1 class="mybooktable-version"><?php echo(esc_attr_e('You are currently using').' <span class="current-version">'.esc_attr_e('MyBookTable').wp_kses_post(MBT_VERSION).'</span>'); ?></h1>
+								<h1 class="mybooktable-version"><?php echo(esc_attr_e('You are currently using', 'mybooktable').' <span class="current-version">'.esc_attr_e('MyBookTable', 'mybooktable').wp_kses_post(MBT_VERSION).'</span>'); ?></h1>
 								<?php
 									$with_the = _x('with the', 'You are currently using MyBookTable (with the) Developer Upgrade.', 'mybooktable');
 									$dev_upgrade = __('Developer Upgrade', 'mybooktable');
@@ -1378,7 +1379,7 @@ function mbt_render_import_page() {
 					?>
 						<div class="wrap mbt-book-importer">
 							<h2><?php echo(isset($importer['page_title']) ? esc_attr($importer['page_title']) : esc_attr($importer['name'])); ?></h2>
-							<span class="mbt-book-importer-error"><?php esc_attr_e('Import error:'); ?></span>
+							<span class="mbt-book-importer-error"><?php esc_attr_e('Import error:', 'mybooktable'); ?></span>
 							<?php echo(wp_kses_post($book_list)); ?>
 						</div>
 					<?php
@@ -1472,13 +1473,13 @@ function mbt_render_import_page() {
 							echo('<div style="clear:both"></div><input type="submit" name="import-submit" class="import-submit button button-primary" value="'.sprintf(esc_html__('Import', 'mybooktable')).'">');
 						} else if(is_array($importer['get_book_list'])) {
 							if(!isset($importer['get_book_list']['render_import_form']) or !isset($importer['get_book_list']['parse_import_form'])) {
-								esc_attr_e('Importer error! Unable to render import form.');
+								esc_attr_e('Importer error! Unable to render import form.', 'mybooktable');
 							} else {
 								call_user_func($importer['get_book_list']['render_import_form']);
 								echo('<div style="clear:both"></div><input type="submit" name="import-submit" class="import-submit button button-primary"  value="'.sprintf(esc_html__('Import','mybooktable')).'">');
 							}
 						} else {
-							esc_attr_e('Importer error! Please ensure your MyBookTable Upgrade plugins are updated.');
+							esc_attr_e('Importer error! Please ensure your MyBookTable Upgrade plugins are updated.', 'mybooktable');
 						}
 					?>
 					</form>

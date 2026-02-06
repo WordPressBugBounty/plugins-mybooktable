@@ -1,3 +1,6 @@
+<?php 
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+?>
 <a class="mbt-book-anchor" id="mbt-book-summary-anchor" name="mbt-book-summary-anchor"></a>
 <div class="mbt-book-section mbt-book-summary-section">
 	<div class="mbt-book-section-content">

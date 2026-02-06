@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function mbt_buybutton_button_add_ga($output, $data, $store) {
 	global $post;

@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function mbt_breadcrumbs_init() {
 	add_action('mbt_before_single_book', 'mbt_do_page_breadcrumbs', 20);

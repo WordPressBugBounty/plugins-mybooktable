@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function mbt_getnoticed_init() {
 	add_action('after_setup_theme', 'mbt_getnoticed_compat', 20);

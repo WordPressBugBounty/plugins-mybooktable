@@ -1,1 +1,3 @@
-<?php mbt_the_book_archive_description('<div class="mbt-book-archive-description" style="width: '.(mbt_get_book_archive_image() ? '75%' : '100%').'">', '</div>'); ?>
+<?php 
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+mbt_the_book_archive_description('<div class="mbt-book-archive-description" style="width: '.(mbt_get_book_archive_image() ? '75%' : '100%').'">', '</div>'); ?>
