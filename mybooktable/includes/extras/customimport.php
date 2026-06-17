@@ -39,8 +39,8 @@ function mbt_render_custom_importer_form() {
 
 function mbt_parse_custom_importer_form() {
 	if( isset($_REQUEST['data-import-nonce']) && isset($_FILES['mbt_custom_import_file']['tmp_name']) && wp_verify_nonce(sanitize_key($_REQUEST['data-import-nonce']),'mbt-import-nonce')) {
-		//require_once(ABSPATH.'wp-admin/includes/class-wp-filesystem-base.php');
-		//require_once(ABSPATH.'wp-admin/includes/class-wp-filesystem-direct.php');
+		require_once(ABSPATH.'wp-admin/includes/class-wp-filesystem-base.php');
+		require_once(ABSPATH.'wp-admin/includes/class-wp-filesystem-direct.php');
 		$file = sanitize_text_field(wp_unslash($_FILES['mbt_custom_import_file']['tmp_name']));
 		if(!isset($file) || empty($file)){return;}
 		//$file_text = file_get_contents($file);
@@ -114,7 +114,7 @@ function mbt_custom_importer_filter_book($book, $import_type) {
 		$book_matches = ($book_matches and ($book['show_instant_preview'] === get_post_meta($existing_book->ID, 'mbt_show_instant_preview', true)));
 		$book_matches = ($book_matches and ($book['series_order'] === get_post_meta($existing_book->ID, 'mbt_series_order', true)));
 		$book_matches = ($book_matches and ($book['display_mode'] === get_post_meta($existing_book->ID, 'mbt_display_mode', true)));
-		if($book_matches) { return sprintf(esc_attresc_attr_e('Book "%s" already exists', 'mybooktable'), $book['title']); }
+		if($book_matches) { return sprintf(__('Book "%s" already exists', 'mybooktable'), $book['title']); }
 	}
 
 	//test if image id matches desired image

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: book, books, ecommerce, author plugin
 Requires at least: 4.5.0
 Tested up to: 6.9
-Stable tag: 3.6.0
+Stable tag: 3.6.2
 Requires PHP: 7.0
 
 License: GPLv2 or later
@@ -209,6 +209,24 @@ No! This plugin would work great for anyone wanting to have an Amazon Affiliate 
 
 == Upgrade Notice ==
 
+= 3.6.2 =
+Restored required filesystem class loading in the Custom Import/Export tool that was preventing imports from working at all (fatal error: Class "WP_Filesystem_Direct" not found). Also fixed a malformed function call that broke duplicate-book detection during import.
+
+= 3.6.1 =
+Fixed fatal error in Custom Import/Export caused by missing filesystem class includes, and fixed a broken function name affecting duplicate-book detection on import.
+
+= 3.6 =
+Fixed a PHP parse error in the Custom Import/Export tool introduced in 3.5.11.
+
+= 3.5.11 =
+PHP 8+ compatibility fixes: corrected undefined array key warnings in buy button and metabox handling, and fixed a fatal error when exporting books without a cover image.
+
+= 3.5.10 =
+Corrected missing/incorrect text domains across several admin screens and fixed a widget settings syntax error, for full translation compatibility.
+
+= 3.5.9 =
+Fixed an issue causing Author, Genre, Series, and Tag edit screens to display raw HTML instead of rendering form fields correctly.
+
 = 3.5.8 =
 Add extra script security features.
 
@@ -304,6 +322,30 @@ This version adds several cool new features, including "Publisher" and "Publicat
 This version adds **many** new buy button options, including Apple iBooks & Sony Reader.
 
 == Changelog ==
+
+= 3.6.2 =
+* Fixed: Custom Import/Export tool threw a fatal error ("Class WP_Filesystem_Direct not found") on every import attempt because required WordPress filesystem class files were not being loaded. Restored the missing `require_once` statements in includes/extras/customimport.php.
+* Fixed: Duplicate-book detection during import called a malformed/undefined function name, which would have thrown a separate fatal error when an imported book matched an existing one. Corrected to use the proper translation function.
+
+= 3.6.1 =
+* Fixed: Fatal error in Custom Import/Export caused by missing filesystem class includes in includes/extras/customimport.php.
+* Fixed: Malformed function call affecting duplicate-book detection on import.
+
+= 3.6 =
+* Fixed: PHP parse error (unmatched closing brace) in includes/extras/customimport.php introduced in 3.5.11.
+
+= 3.5.11 =
+* Fixed: Undefined array key "display" warning in includes/metaboxes.php when editing buy buttons.
+* Fixed: Undefined array key "store"/"url" warnings in includes/buybuttons.php when rendering the buy button editor.
+* Fixed: Fatal error in includes/extras/customimport.php when exporting a book with no cover image (array access on a boolean value).
+* Fixed: Undefined variable warning in includes/extras/customimport.php caused by incorrect usage of wp_nonce_field().
+
+= 3.5.10 =
+* Fixed: 13 missing/incorrect text domain instances across includes/admin_pages.php, includes/metaboxes.php, includes/buybuttons.php, includes/setup.php, and includes/extras/divi.php, for full translation compatibility.
+* Fixed: PHP syntax error in includes/extras/widgets.php caused by an incomplete function call.
+
+= 3.5.9 =
+* Fixed: Author, Genre, Series, and Tag edit screens displayed raw escaped HTML instead of rendering the Image and Priority form fields, caused by double-escaping the security nonce field in includes/taxonomies.php.
 
 = 3.2.4 =
 * Updated plugin contributors and repository links.

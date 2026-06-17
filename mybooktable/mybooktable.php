@@ -7,12 +7,12 @@ Author: Stormhill Media
 Author URI: https://www.stormhillmedia.com
 Text Domain: mybooktable
 Domain Path: /i18n/
-Version: 3.6.0
+Version: 3.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
-define("MBT_VERSION", "3.6.0");
+define("MBT_VERSION", "3.6.2"); 
 
 /*---------------------------------------------------------*/
 /* PHP Version Check                                       */
