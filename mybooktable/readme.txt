@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: book, books, ecommerce, author plugin
 Requires at least: 4.5.0
 Tested up to: 6.9
-Stable tag: 3.6.2
+Stable tag: 3.6.3
 Requires PHP: 7.0
 
 License: GPLv2 or later
@@ -209,6 +209,9 @@ No! This plugin would work great for anyone wanting to have an Amazon Affiliate 
 
 == Upgrade Notice ==
 
+= 3.6.3 =
+Fixed compatibility mode causing a white screen / empty page on block themes (e.g. Twenty Twenty-Five). Compatibility mode now correctly detects block themes and lets WordPress handle its own template loading rather than attempting to load a classic page.php/index.php that block themes do not provide.
+
 = 3.6.2 =
 Restored required filesystem class loading in the Custom Import/Export tool that was preventing imports from working at all (fatal error: Class "WP_Filesystem_Direct" not found). Also fixed a malformed function call that broke duplicate-book detection during import.
 
@@ -322,6 +325,9 @@ This version adds several cool new features, including "Publisher" and "Publicat
 This version adds **many** new buy button options, including Apple iBooks & Sony Reader.
 
 == Changelog ==
+
+= 3.6.3 =
+* Fixed: Compatibility mode caused a white screen / empty body tag on block themes such as Twenty Twenty-Five. Block themes do not provide a classic page.php and their index.php is a silent stub that renders nothing. Compatibility mode now detects block themes via wp_is_block_theme() and skips the classic template override, allowing WordPress to load its own block templates while still injecting book content via the the_content filter as normal.
 
 = 3.6.2 =
 * Fixed: Custom Import/Export tool threw a fatal error ("Class WP_Filesystem_Direct not found") on every import attempt because required WordPress filesystem class files were not being loaded. Restored the missing `require_once` statements in includes/extras/customimport.php.

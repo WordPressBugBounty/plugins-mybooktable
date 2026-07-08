@@ -91,8 +91,14 @@ function mbt_compat_load_book_templates($template) {
 	global $post;
 	if(is_singular('mbt_book') or mbt_is_archive_query()) {
 		if(is_singular('mbt_book') and !mbt_book_display_mode_supports(mbt_get_book_display_mode($post->ID), 'embedding')) { return mbt_load_book_templates($template); }
-		$template = locate_template('page.php');
-		if(empty($template)) { $template = locate_template('index.php'); }
+		// STORMHILL FIX 3.6.2: Block themes (FSE, e.g. Twenty Twenty-Five) have no page.php,
+		// and their index.php is a silent stub that renders nothing. Don't override the template
+		// for block themes — let WordPress load its own block template and inject content via
+		// the_content filter, which the core/post-content block applies correctly.
+		if ( ! function_exists( 'wp_is_block_theme' ) || ! wp_is_block_theme() ) {
+			$template = locate_template('page.php');
+			if(empty($template)) { $template = locate_template('index.php'); }
+		}
 		add_filter('the_content', 'mbt_compat_custom_page_content', 999, 2);
 	} else if(mbt_is_booktable_page()) {
 		add_filter('the_content', 'mbt_compat_custom_page_content', 999, 2);
