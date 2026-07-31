@@ -209,6 +209,11 @@ No! This plugin would work great for anyone wanting to have an Amazon Affiliate 
 
 == Upgrade Notice ==
 
+= 3.6.4 =
+Stormhill Fix: Replaced jQuery animate scroll with native window.scrollTo (capture phase)
+to resolve scroll-snap conflict with Divi and similar themes. Added XSS security fixes
+for bookclub links, audiobook links, and overview image output.
+
 = 3.6.3 =
 Fixed compatibility mode causing a white screen / empty page on block themes (e.g. Twenty Twenty-Five). Compatibility mode now correctly detects block themes and lets WordPress handle its own template loading rather than attempting to load a classic page.php/index.php that block themes do not provide.
 
@@ -325,6 +330,11 @@ This version adds several cool new features, including "Publisher" and "Publicat
 This version adds **many** new buy button options, including Apple iBooks & Sony Reader.
 
 == Changelog ==
+
+= 3.6.4 =
+Stormhill Fix: Replaced jQuery animate scroll with native window.scrollTo (capture phase)
+to resolve scroll-snap conflict with Divi and similar themes. Added XSS security fixes
+for bookclub links, audiobook links, and overview image output.
 
 = 3.6.3 =
 * Fixed: Compatibility mode caused a white screen / empty body tag on block themes such as Twenty Twenty-Five. Block themes do not provide a classic page.php and their index.php is a silent stub that renders nothing. Compatibility mode now detects block themes via wp_is_block_theme() and skips the classic template override, allowing WordPress to load its own block templates while still injecting book content via the the_content filter as normal.
