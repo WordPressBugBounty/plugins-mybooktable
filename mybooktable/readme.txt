@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: book, books, ecommerce, author plugin
 Requires at least: 4.5.0
 Tested up to: 6.9
-Stable tag: 3.6.3
+Stable tag: 3.6.5
 Requires PHP: 7.0
 
 License: GPLv2 or later
@@ -209,6 +209,9 @@ No! This plugin would work great for anyone wanting to have an Amazon Affiliate 
 
 == Upgrade Notice ==
 
+= 3.6.5 = 
+Fixed missing template.php file in /includes.
+
 = 3.6.4 =
 Stormhill Fix: Replaced jQuery animate scroll with native window.scrollTo (capture phase)
 to resolve scroll-snap conflict with Divi and similar themes. Added XSS security fixes
@@ -330,6 +333,8 @@ This version adds several cool new features, including "Publisher" and "Publicat
 This version adds **many** new buy button options, including Apple iBooks & Sony Reader.
 
 == Changelog ==
+= 3.6.5 = 
+Fixed missing template.php file in /includes.
 
 = 3.6.4 =
 Stormhill Fix: Replaced jQuery animate scroll with native window.scrollTo (capture phase)

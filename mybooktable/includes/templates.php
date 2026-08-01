@@ -151,6 +151,15 @@ function mbt_enqueue_scripts() {
 	wp_enqueue_script('jquery-ui-accordion');
 	wp_enqueue_script('mbt-frontend-js', plugins_url('js/frontend.js', dirname(__FILE__)), array('jquery', 'jquery-ui-accordion'), MBT_VERSION, true);
 	wp_enqueue_script('mbt-shadowbox', plugins_url('js/lib/jquery.colorbox.min.js', dirname(__FILE__)), array('jquery'), MBT_VERSION, true);
+
+	// Scroll fix: uses native window.scrollTo to bypass theme JS conflicts (e.g. Divi)
+	// Registered after mbt-frontend-js so it loads last and owns the capture phase
+	$scroll_deps = array( 'mbt-frontend-js' );
+	if ( wp_script_is( 'mbtpro3-frontend-js', 'registered' ) ) {
+		$scroll_deps[] = 'mbtpro3-frontend-js';
+	}
+	wp_enqueue_script( 'mbt-scroll-fix', plugins_url( 'js/scroll-fix.js', dirname(__FILE__) ), $scroll_deps, MBT_VERSION, true );
+	wp_print_scripts( 'mbt-scroll-fix' );
 }
 
 function mbt_get_template_folders() {
@@ -1251,7 +1260,7 @@ function mbt_get_book_bookclub_resources($post_id) {
 		if(!empty($links) and is_array($links)) {
 			foreach($links as $link) {
 				if(empty($link['url'])) { continue; }
-				$links_output .= '<li><a target="_blank" href="'.$link['url'].'">'.(empty($link['text']) ? 'Download Resource' : $link['text']).'</a></li>';
+				$links_output .= '<li><a target="_blank" href="'.esc_url($link['url']).'">'.(empty($link['text']) ? 'Download Resource' : esc_html($link['text'])).'</a></li>';
 			}
 		}
 		if(!empty($links_output)) { $output .= '<ul class="mbt-book-bookclub-links">'.$links_output.'</ul>'; }
@@ -1278,7 +1287,7 @@ function mbt_get_book_audiobook_resources($post_id) {
 		if(!empty($links) and is_array($links)) {
 			foreach($links as $link) {
 				if(empty($link['url'])) { continue; }
-				$links_output .= '<li><a target="_blank" href="'.$link['url'].'">'.(empty($link['text']) ? 'Download Resource' : $link['text']).'</a></li>';
+				$links_output .= '<li><a target="_blank" href="'.esc_url($link['url']).'">'.(empty($link['text']) ? 'Download Resource' : esc_html($link['text'])).'</a></li>';
 			}
 		}
 		if(!empty($links_output)) { $output .= '<ul class="mbt-book-audiobook-links">'.$links_output.'</ul>'; }
@@ -1300,7 +1309,7 @@ function mbt_get_book_overview_image($post_id) {
 	if(empty($image_id)) { $image_id = get_post_meta($post_id, 'mbt_book_image_id', true); }
 	$image = wp_get_attachment_image_src($image_id, 'mbt_endorsement_image');
 	$srcset = function_exists('wp_get_attachment_image_srcset') ? wp_get_attachment_image_srcset($image_id, 'mbt_endorsement_image') : '';
-	if(!empty($image)) { $output .= '<div class="mbt-book-overview-image"><img src="'.$image[0].'"'.(empty($srcset) ? '' : ' srcset="'.$srcset.'"').'></div>'; }
+	if(!empty($image)) { $output .= '<div class="mbt-book-overview-image"><img src="'.esc_url($image[0]).'"'.(empty($srcset) ? '' : ' srcset="'.esc_attr($srcset).'"').'></div>'; }
 	return apply_filters('mbt_get_book_overview_image', $output, $post_id);
 }
 function mbt_the_book_overview_image() {
